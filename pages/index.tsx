@@ -26,15 +26,24 @@ export default function Home({ posts }: InferGetStaticPropsType<typeof getStatic
             Latest
           </h1>
           <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">
-            {siteMetadata.description}
+            Like what you read? I work at a consultancy called Theodo UK, feel free to{' '}
+            <a
+              href="https://www.theodo.co.uk/contact?hsLang=en-gb"
+              target="_blank"
+              className="text-primary-500 underline hover:text-primary-300"
+              rel="noreferrer"
+            >
+              contact us
+            </a>{' '}
+            for help on your project.
           </p>
         </div>
         <ul className="divide-y divide-gray-200 dark:divide-gray-700">
-          {!posts.length && 'No posts found.'}
+          {!posts.length && <div className="mt-8">No posts found.</div>}
           {posts.slice(0, MAX_DISPLAY).map((frontMatter) => {
             const { slug, date, title, summary, tags } = frontMatter
             return (
-              <li key={slug} className="py-12">
+              <li key={slug} className="py-8">
                 <article>
                   <div className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
                     <dl>
