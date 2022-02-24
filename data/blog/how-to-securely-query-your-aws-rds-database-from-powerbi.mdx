@@ -84,7 +84,7 @@ The AWS [whitepaper](https://docs.aws.amazon.com/en_us/whitepapers/latest/using-
   <div className="flex-1 w-full">
     <h4>Cons</h4>
     <ul>
-      <li>❌ Users have to install VPN client</li>
+      <li>❌ Users have to install VPN client and connect while using PowerBI</li>
     </ul>
   </div>
 </div>
@@ -108,7 +108,7 @@ The AWS [whitepaper](https://docs.aws.amazon.com/en_us/whitepapers/latest/using-
   </div>
 </div>
 
-After the above analysis we concluded
+From the above analysis we concluded that provisioning an AWS Client VPN satisfied three out of our four priorities. We mitigated the downside of VPN configuration on the client side by providing good documentation to the PowerBI users for connecting to the VPN.
 
 ## Provisioning an AWS Client VPN using Terraform
 
@@ -118,7 +118,7 @@ Therefore we have our first step:
 
 ### Step 1: Provision a read replica of your database in RDS.
 
-At Theodo UK we use [Terraform](https://www.terraform.io/) to provision infrastructure in AWS which brings all the benefits of infrastructure as code.
+At Theodo UK we use [Terraform](https://www.terraform.io/) to provision infrastructure in AWS which brings all the benefits of infrastructure as code, including versioning, automation and many more.
 
 In Terraform provisioning a read replica is as easy as specifying another RDS resource block and setting the `replicate_source_db` option to the id of your production database.
 
