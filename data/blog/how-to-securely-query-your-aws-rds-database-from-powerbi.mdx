@@ -1,12 +1,250 @@
 ---
 title: How to securely query your AWS RDS database from PowerBI
-date: '2022-02-23'
-tags: ['AWS', 'PowerBI', 'RDS']
+date: '2022-02-24'
+tags: ['AWS', 'RDS', 'Terraform', 'PowerBI']
 draft: false
-summary: Summary of the options for integrating PowerBI with RDS and a tutorial for provisioning an AWS Client VPN allowing PowerBI queries to your production database.
+summary: Summary of the options for integrating PowerBI with RDS and a tutorial for provisioning an AWS Client VPN using Terraform, allowing queries to your production database through PowerBI.
 images: []
 layout: PostSimple
 canonicalUrl: securely-query-aws-rds-database-powerbi
 ---
 
-Content goes here...
+Recently at Theodo UK we had a client with a Data Analytics team using the data visualisation tool PowerBI. PowerBI is a Business Intelligence desktop application for Microsoft Windows that allows users to generate graphics and reports for a variety of data sources.
+
+Our client wished to generate reports on the data in their production PostgreSQL database that we provisioned for them in AWS RDS. They therefore required a solution that would allow their Analytics team to query the database from their local machines.
+
+The solution had to balance of number of priorities:
+
+1. **Security** - The production data was highly sensitive and it was important to not risk a data breach.
+2. **Convenience** - Ideally the solution would require minimal effort on the side of the PowerBI team to implement on their local machines.
+3. **Speed of implementation** - We had a two day goal for the integration to be completed.
+4. **Cost** - AWS bill should not increase too much.
+
+We found that provisioning an **AWS Client VPN** for the PowerBI team to connect to and query the database through was the ideal balance of these four priorities.
+
+## Decision Process
+
+The AWS [whitepaper](https://docs.aws.amazon.com/en_us/whitepapers/latest/using-power-bi-with-aws-cloud/using-power-bi-with-aws-cloud.pdf#using-power-bi-with-aws-cloud) on the topic of using PowerBI in the AWS Cloud provides four main options for connecting PowerBI and RDS, which are as follows:
+
+### Whitelist IP access for certain users
+
+<div className="flex w-full">
+  <div className="flex-1 w-full">
+    <h4>Pros</h4>
+    <ul>
+      <li>✅ Easy to set up</li>
+      <li>✅ Cheap</li>
+    </ul>
+  </div>
+  <div className="flex-1 w-full">
+    <h4>Cons</h4>
+    <ul>
+      <li>❌ Not very secure</li>
+      <li>
+        ❌ Requires manual maintenance of IP whitelist in AWS (annoying if IPs rotate, or some
+        members of the team sometimes work from home)
+      </li>
+    </ul>
+  </div>
+</div>
+
+### Configure SSH access for certain users
+
+<div className="flex w-full">
+  <div className="flex-1 w-full">
+    <h4>Pros</h4>
+    <ul>
+      <li>✅ Pretty easy to set up</li>
+      <li>✅ Cheap</li>
+    </ul>
+  </div>
+  <div className="flex-1 w-full">
+    <h4>Cons</h4>
+    <ul>
+      <li>❌ Not very secure</li>
+      <li>
+        ❌ Users have to install an SSH client such as PuTTY which has a fairly complicated
+        configuration process
+      </li>
+    </ul>
+  </div>
+</div>
+
+### Provision an AWS Client VPN endpoint that users can connect to
+
+<div className="flex w-full">
+  <div className="flex-1 w-full">
+    <h4>Pros</h4>
+    <ul>
+      <li>✅ Pretty secure</li>
+      <li>✅ Pretty easy to set up</li>
+      <li>✅ Fairly Cheap (70$/mo for associating with a single subnet)</li>
+    </ul>
+  </div>
+  <div className="flex-1 w-full">
+    <h4>Cons</h4>
+    <ul>
+      <li>❌ Users have to install VPN client</li>
+    </ul>
+  </div>
+</div>
+
+### Provision a Microsoft On-premises Data Gateway in AWS
+
+<div className="flex w-full">
+  <div className="flex-1 w-full">
+    <h4>Pros</h4>
+    <ul>
+      <li>✅ Pretty secure</li>
+      <li>✅ Users don’t have to install anything</li>
+    </ul>
+  </div>
+  <div className="flex-1 w-full">
+    <h4>Cons</h4>
+    <ul>
+      <li>❌ Very expensive (~$400/mo)</li>
+      <li>❌ Difficult to set up</li>
+    </ul>
+  </div>
+</div>
+
+After the above analysis we concluded
+
+## Provisioning an AWS Client VPN using Terraform
+
+Ideally PowerBI users should not be querying your actual production database. This is in case any of them manage to write an expensive query and lock the database, causing downtime for your production users.
+
+Therefore we have our first step:
+
+### Step 1: Provision a read replica of your database in RDS.
+
+At Theodo UK we use [Terraform](https://www.terraform.io/) to provision infrastructure in AWS which brings all the benefits of infrastructure as code.
+
+In Terraform provisioning a read replica is as easy as specifying another RDS resource block and setting the `replicate_source_db` option to the id of your production database.
+
+### Step 2: Provision an AWS Client VPN
+
+To use mutual authentication two certificates must be defined in Terraform:
+
+```jsx
+resource "aws_acm_certificate" "server" {
+  domain_name = "server"
+}
+
+resource "aws_acm_certificate" "client" {
+  domain_name = "client1.domain.tld"
+}
+```
+
+We then define a `aws_ec2_client_vpn_endpoint` resource:
+
+```jsx
+resource "aws_ec2_client_vpn_endpoint" "vpn" {
+  description       = "PowerBI VPN"
+  client_cidr_block = "10.0.0.0/22"
+  split_tunnel      = true
+
+  server_certificate_arn = aws_acm_certificate.server.arn
+
+  connection_log_options {
+    enabled = false
+  }
+
+  authentication_options {
+    type                       = "certificate-authentication"
+    root_certificate_chain_arn = aws_acm_certificate.client.arn
+  }
+
+  dns_servers = [
+    "1.1.1.1",
+    "8.8.8.8",
+  ]
+}
+```
+
+Where we use `split_tunnel` to ensure only RDS traffic gets routed through the VPN. We don’t want to pay the data transfer costs for all other traffic!
+
+We also need an authorisation rule:
+
+```jsx
+resource "aws_ec2_client_vpn_authorization_rule" "default" {
+  client_vpn_endpoint_id = aws_ec2_client_vpn_endpoint.vpn.id
+  target_network_cidr    = "10.0.0.0/16"
+  authorize_all_groups   = true
+}
+```
+
+And finally a network association:
+
+```jsx
+resource "aws_ec2_client_vpn_network_association" "default" {
+  client_vpn_endpoint_id = aws_ec2_client_vpn_endpoint.vpn.id
+  subnet_id              = var.vpc_private_subnet
+  security_groups        = [var.security_group_id]
+}
+```
+
+Make sure the `subnet_id` is the subnet containing your RDS instance! Also, make sure to allow traffic from the security group you specify in `security_groups` as ingress to your production database security group. A secure implementation will only allow ingress via the database port e.g. for Postgres it would be as follows:
+
+```jsx
+ingress {
+    from_port       = 5432
+    to_port         = 5432
+    protocol        = "tcp"
+    security_groups = [var.security_group_id]
+  }
+```
+
+### Step 3: Create a VPN Configuration File
+
+Steps to do this can be found in the [AWS documentation](https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/cvpn-getting-started.html) (step 7).
+
+### Step 4: Download a VPN Client and connect to the VPN
+
+AWS provides a [VPN client](https://docs.aws.amazon.com/vpn/latest/clientvpn-user/connect-aws-client-vpn-connect.html) for Windows, Mac and Linux. Once downloaded you should be able to connect to your VPN!
+
+### Step 5: On Windows, add the RDS Public Key to our trusted root certificates
+
+1. Download the [RDS Public Key](https://s3.amazonaws.com/rds-downloads/rds-combined-ca-bundle.pem)
+2. [Convert](https://www.sslshopper.com/ssl-converter.html) the key to P7B/PKCS#7
+3. Open `mmc` from the cmd prompt
+4. File > Add/Remove Snap In
+5. Certificates > Add > Computer Account > Local Computer > OK
+6. Right click on Trusted Root Certification Authorities > All Tasks > Import
+7. Select the certificate you just converted > Place all certificates in the following store
+
+### Step 6: Add your RDS Database as a data source in PowerBI
+
+1. Obtain the RDS credentials
+2. In PowerBI Get Data > PostgreSQL Database (or your DB type)
+3. Fill in the credentials
+4. Query away!
+
+Make sure you share the database credentials and VPN configuration file securely between users. Now you are all set up!
+
+<div
+  style={{
+    borderRadius: 5,
+    backgroundColor: '#262626',
+    display: 'flex',
+    padding: '0px 1.5rem 0px 1.5rem',
+  }}
+>
+  <div style={{ marginRight: '2rem' }}>
+    <img src="/static/images/theodo.png" alt="drawing" width="130" />
+  </div>
+  <div>
+    <h2 style={{ marginTop: '1rem', marginBottom: 0, color: 'white' }}>
+      We help you build the tech capability to stand out in your market
+    </h2>
+    <div style={{ marginTop: '-1rem', marginBottom: '1rem' }}>
+      <a
+        href="https://www.theodo.co.uk/contact?hsLang=en-gb"
+        className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 no-underline"
+        style={{ textDecoration: 'none' }}
+      >
+        Let's talk &rarr;
+      </a>
+    </div>
+  </div>
+</div>

@@ -8,7 +8,7 @@ interface Props {
   frontMatter: AuthorFrontMatter
 }
 
-export default function AuthorLayout({ children, frontMatter }: Props) {
+export default function AuthorLayout({ frontMatter }: Props) {
   const { name, avatar, occupation, company } = frontMatter
 
   return (
@@ -33,7 +33,30 @@ export default function AuthorLayout({ children, frontMatter }: Props) {
             <div className="text-gray-500 dark:text-gray-400">{occupation}</div>
             <div className="text-gray-500 dark:text-gray-400">{company}</div>
           </div>
-          <div className="prose max-w-none pt-8 pb-8 dark:prose-dark xl:col-span-2">{children}</div>
+          <div className="prose max-w-none pt-8 pb-8 dark:prose-dark xl:col-span-2">
+            Hey, I'm Ben. 👋
+            <br />
+            <br />
+            I'm an Architect Developer at Theodo UK. We help companies build business-driven
+            products in record time. Feel free to{' '}
+            <a
+              href="https://www.theodo.co.uk/contact?hsLang=en-gb"
+              target="_blank"
+              className="text-primary-500 underline hover:text-primary-300"
+              rel="noreferrer"
+            >
+              reach out
+            </a>{' '}
+            if you think we can help with your current challenge.
+            <br />
+            <br />
+            Some bits about me. I have a Masters in Physics from Oxford. I have experience across
+            the full stack and entire software development lifecycle. I've delivered high-quality,
+            scalable products to production and hope to continue doing so!
+            <br />
+            <br /> I'm a qualified AWS Developer Associate and Cloud Practitioner. I'm also a
+            qualified Circl Leader as a Coach.
+          </div>
         </div>
       </div>
     </>
