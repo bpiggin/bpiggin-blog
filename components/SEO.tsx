@@ -51,6 +51,7 @@ const CommonSEO = ({
         rel="canonical"
         href={canonicalUrl ? canonicalUrl : `${siteMetadata.siteUrl}${router.asPath}`}
       />
+      <meta name="author" content="Ben Piggin"></meta>
     </Head>
   )
 }
