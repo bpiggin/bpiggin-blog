@@ -34,3 +34,9 @@ export const logEvent = (action, category, label, value) => {
     value: value,
   })
 }
+
+export const pageview = (url: string): void => {
+  window.gtag('config', siteMetadata.analytics.googleAnalyticsId, {
+    page_path: url,
+  })
+}
