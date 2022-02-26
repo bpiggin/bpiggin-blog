@@ -7,6 +7,7 @@ import formatDate from '@/lib/utils/formatDate'
 import { GetStaticProps, InferGetStaticPropsType } from 'next'
 import { PostFrontMatter } from 'types/PostFrontMatter'
 import NewsletterForm from '@/components/NewsletterForm'
+import { logEvent } from '@/components/analytics/GoogleAnalytics'
 
 const MAX_DISPLAY = 5
 
@@ -32,6 +33,7 @@ export default function Home({ posts }: InferGetStaticPropsType<typeof getStatic
               target="_blank"
               className="text-primary-500 underline hover:text-primary-300"
               rel="noreferrer"
+              onClick={() => logEvent('contact_us', 'contact_us', 'contact_us', 'contact_us')}
             >
               contact us
             </a>{' '}

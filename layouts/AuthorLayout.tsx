@@ -1,3 +1,4 @@
+import { logEvent } from '@/components/analytics/GoogleAnalytics'
 import Image from '@/components/Image'
 import { PageSEO } from '@/components/SEO'
 import { ReactNode } from 'react'
@@ -44,6 +45,7 @@ export default function AuthorLayout({ frontMatter }: Props) {
               target="_blank"
               className="text-primary-500 underline hover:text-primary-300"
               rel="noreferrer"
+              onClick={() => logEvent('contact_us', 'contact_us', 'contact_us', 'contact_us')}
             >
               reach out
             </a>{' '}

@@ -243,6 +243,13 @@ Make sure you share the database credentials and VPN configuration file securely
         target="_blank"
         className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 no-underline"
         style={{ textDecoration: 'none' }}
+        onClick={() =>
+          window.gtag?.('event', 'contact_us', {
+            event_category: 'contact_us',
+            event_label: 'contact_us',
+            value: 'contact_us',
+          })
+        }
       >
         Let's talk &rarr;
       </a>
