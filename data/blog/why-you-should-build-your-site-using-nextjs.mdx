@@ -1,0 +1,148 @@
+---
+title: Why NextJS is the future
+date: '2022-02-28'
+tags: ['NextJS', 'React', 'SEO', 'SSR']
+draft: true
+summary: Released in 2016, NextJS has now hit its stride as a mature React Framework with many companies migrating to it. In this piece I explain the benefits it can bring to your business and why it will continue to grow in popularity.
+images: ['/static/images/nextjs/downloads.png']
+layout: PostSimple
+canonicalUrl: why-nextjs-is-the-future
+---
+
+<div style={{ display: 'flex', justifyContent: 'center' }}>
+  <div style={{ display: 'flex', justifyContent: 'center', width: '75%' }}>
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
+      ![Daily npm downloads](/static/images/nextjs/downloads.png)
+      <p style={{ marginTop: '-0.1rem' }}>
+        <em>Graph of NPM weekly downloads for 3 common React frameworks</em>
+      </p>
+    </div>
+  </div>
+</div>
+
+NextJS is a framework for React released back in 2016. Since then it has grown hugely in popularity with over 2 million weekly downloads, and major companies such as Netflix, Uber and Starbucks using it in production. Vercel, the company behind NextJS, raised \$150m in Series D funding in November 2021 providing an overall valuation of over \$2.5 billion.[^1]
+We can understand this huge rise in popularity through looking at the major benefits to businesses provided by NextJS.
+
+# NextJS is great for SEO
+
+SEO, or search engine optimization, is the practice of trying to increase your sites ranking in search results. In practice, since Google's share of the search market has stayed consistently over 80% for the last 10 years[^2], this means increasing your search ranking on Google.
+
+Businesses care about SEO because 'Organic Traffic' (i.e. visitors who arrive on your site through clicking on a result in a search engine) is one of the most valuable forms of traffic for a few reasons:
+
+1. **Conversion** - Higher conversion rates for organic visitors (14.6% according to Hubspot[^3])
+2. **Trust** - Increased confidence in your brand
+3. **Cost** - Other than the initial cost of optimisation there are no operational costs associated with a good search ranking
+
+Even according to the biggest paid advertising brand in the world, Google, organic search is five times more valuable than Google Advertising[^4].
+
+So how does NextJS help with this? Well, in order to rank your page, Google first has to crawl your site using a bot in order to discover all of its pages. After that it will analyse their content in a process called indexing. Over 200 variables calculated as part of this indexing process are then used to determine your ranking in search results.
+
+The problem with React and other client-side rendered applications is that Google uses the semantic HTML of a page in order to determine its contents. With client-side rendered applications an almost-empty HTML document is initially delivered on page load and then Javascript is used to render the rest of the page.
+
+Despite progress in determining the contents of client-side rendered applications, Google still encounters issues including:
+
+1. Client-side rendered Javascript often returns success status codes when it should return error codes making it hard for the Google bot to figure out which pages exist
+2. If the page takes a long time to render the HTML document then the Google bot may timeout and fail to index the page
+
+NextJS solves these issues, among others, by using **server-side rendering** (SSR). This is where the HTML document is rendered on the server and then sent directly to the client, meaning the HTML of the page is immediately viewable. This means that the Google bot is immediately delivered a full HTML document when it visits your page, allowing for easier indexing and a better search ranking.
+
+In recognition of the superior SEO performance of server-side rendering, Google have advocated for a 'Dynamic Rendering' scheme[^5]. This is where webpages are client-side rendered for users but server-side rendered for search engines. However due to the potential performance gains of SSR for your end users (detailed below), people like John Mueller (Search Advocate at Google), espouse the benefits of SSR for both SEO and performance[^6].
+
+Airbnb were early to this conclusion. Back in 2012 they started building Hypernova, an SSR framework, in part to improve the SEO of their React frontend[^7].
+
+**With SSR built in, NextJS allows you to build Search Engine Optimised sites more easily than ever before, driving increased traffic and conversion rates for your business.**
+
+# NextJS is great for performance
+
+In a talk given in 2012[^8], Walmart presented a series of incredible statistics about how web performance was linked to revenue. A couple of examples were:
+
+1. For every 1 second improvement in page load speed, they experienced up to a 2% increase in conversions
+2. For every 100ms of improvement, they grew incremental revenue by up to 1%
+
+Examples from further afield include:
+
+1. Furniture Village reduced their page load time by 20% resulting in a 10% increase in conversions[^9]
+2. In 'Milliseconds Make Millions' Deloitte found that on average a 0.1s improvement in page speed leads to a 10% increase in conversions[^10]
+
+The bottom line is: **Better site performance leads to increased conversions and revenue**. Users that are not forced to wait behind loading spinners are less likely to 'bounce' (view a single page and then leave) and more likely to stick around and convert.
+
+Vercel claim that 2022 will be their 'fastest year yet' and there are a bunch of high-performance features built into NextJS:
+
+1. **SSR** - As well as better SEO this can result in faster page 'time to visible'
+2. **Code splitting** - Javascript is automatically split between pages resulting in less data to download per page, causing them to load faster
+3. **ISR** - This stands for Incremental Static Regeneration and is a killer feature of NextJS. It allows you to build a static site and then periodically re-build pages with new data. This leads to a fast static site that can be delivered from the edge while still maintaining up to date content. This can be great in E-Commerce use cases where occasionally showing stale data is not too much of an issue.
+
+The above features and more lead to Cruise Critic (a subsidiary of Tripadvisor) experiencing an 85% decrease in page download time after migrating to NextJS.[^11]
+
+**Leveraging the built in performance features of NextJS leads to sites with excellent performance metrics, resulting in decreased user bounce rates and increased user conversion.**
+
+# NextJS is built on top of React
+
+Frontend web technology ages poorly, as a rule. The big 3 frontend frameworks today: React, Angular and Vue were only released in 2013, 2010 and 2015 respectively. It's important for businesses creating new web products today to back the right horses when it comes to the libraries and frameworks they use in order to prevent expensive migrations down the line when they fall out of vogue or become deprecated.
+
+React is an excellent choice when it comes to staying power. The framework was built by Facebook and is still supported by a permanent team there. Over 10 million website use React[^12] including businesses like Uber, Netflix, Instagram and the BBC. The framework consistently leads in areas such as developer usage[^13], hiring trends[^14], and Google trends[^15].
+
+Since NextJS is only a thin wrapper on top of React, React developers will find NextJS comfortably familiar. This allows a company to leverage the entire existing React support and hiring ecosystem, instead of the new training and hiring requirements that usually come with new technologies. It also makes migrating an existing React application a much easier task.
+
+**Built on the bedrock of React, companies using NextJS can be sure that the technology underlying it is popular and widely supported, bringing benefits in hiring, training and insuring against short term migrations.**
+
+# NextJS has a wealth of industry support
+
+While React may be fairly future-proof, it's also important to measure the level of support for NextJS itself and the major players involved in its development. As mentioned in the introduction, NextJS is built by Vercel, a $2.5 billion company at last valuation. Vercel provide a permanent team working on NextJS, in addition to this NextJS is open source and receives contributions from the developer community. Google have also provided support from their own development team, improving the performance of the framework.
+
+**With big technology companies like Twitch, Hulu and Uber migrating to NextJS and a wealth of open source support, the future of NextJS seems secure even excluding Vercel.**
+
+# Conclusion
+
+For all the reasons listed above, NextJS has replaced React in our standard stack at Theodo. We've seen the benefits it can bring to businesses in the E-Commerce space and other sectors with excellent performance and SEO benchmarks achieved on our projects. For your next project, strongly consider NextJS as your frontend solution.
+
+<div
+  style={{
+    borderRadius: 5,
+    backgroundColor: '#262626',
+    display: 'flex',
+    padding: '0px 1.5rem 0px 1.5rem',
+  }}
+>
+  <div style={{ marginRight: '2rem' }}>
+    <img src="/static/images/theodo.png" alt="drawing" width="130" />
+  </div>
+  <div>
+    <h2 style={{ marginTop: '1rem', marginBottom: 0, color: 'white' }}>
+      We help you build the tech capability to stand out in your market
+    </h2>
+    <div style={{ marginTop: '-1rem', marginBottom: '1rem' }}>
+      <a
+        href="https://www.theodo.co.uk/contact?hsLang=en-gb"
+        target="_blank"
+        className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 no-underline"
+        style={{ textDecoration: 'none' }}
+        onClick={() =>
+          window.gtag?.('event', 'contact_us', {
+            event_category: 'contact_us',
+            event_label: 'contact_us',
+            value: 'contact_us',
+          })
+        }
+      >
+        Let's talk &rarr;
+      </a>
+    </div>
+  </div>
+</div>
+
+[^1]: https://vercel.com/blog/vercel-funding-series-d-and-valuation
+[^2]: https://www.statista.com/statistics/216573/worldwide-market-share-of-search-engines/
+[^3]: https://blog.hubspot.com/insiders/11-facts-about-inbound-marketing
+[^4]: Google Economic Impact Report: https://economicimpact.google.com/
+[^5]: https://www.youtube.com/watch?v=PFwUbgvpdaQ&t=1255s
+[^6]: https://youtu.be/DnJNV-mgU_M?t=2940
+[^7]: https://medium.com/airbnb-engineering/building-single-page-apps-ef865c4e74a4
+[^8]: https://www.meetup.com/SF-Web-Performance-Group/events/50485972/
+[^9]: https://www.thinkwithgoogle.com/intl/en-gb/marketing-strategies/app-and-mobile/furniture-village-and-greenlight-slash-page-load-times-boosting-user-experience/
+[^10]: https://www2.deloitte.com/content/dam/Deloitte/ie/Documents/Consulting/Milliseconds_Make_Millions_report.pdf
+[^11]: https://vercel.com/customers/cruise-critic
+[^12]: https://trends.builtwith.com/javascript/React
+[^13]: https://insights.stackoverflow.com/survey/2021#section-most-popular-technologies-web-frameworks
+[^14]: https://www.hntrends.com/2020/dec-year-unlike-any-other-tech-tools-didnt-change-much.html?compare=AngularJS&compare=Ember&compare=React&compare=Vue
+[^15]: https://trends.google.com/trends/explore?cat=733&date=today%205-y&q=React,Vue,Angular
