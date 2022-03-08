@@ -1,8 +1,8 @@
 ---
 title: Why NextJS is the future
-date: '2022-02-28'
+date: '2022-03-08'
 tags: ['NextJS', 'React', 'SEO', 'SSR']
-draft: true
+draft: false
 summary: Released in 2016, NextJS has now hit its stride as a mature React Framework with many companies migrating to it. In this piece I explain the benefits it can bring to your business and why it will continue to grow in popularity.
 images: ['/static/images/nextjs/downloads.png']
 layout: PostSimple
@@ -35,14 +35,14 @@ Businesses care about SEO because 'Organic Traffic' (i.e. visitors who arrive on
 
 Even according to the biggest paid advertising brand in the world, Google, organic search is five times more valuable than Google Advertising[^4].
 
-So how does NextJS help with this? Well, in order to rank your page, Google first has to crawl your site using a bot in order to discover all of its pages. After that it will analyse their content in a process called indexing. Over 200 variables calculated as part of this indexing process are then used to determine your ranking in search results.
+So how does NextJS help with this? Well, in order to rank your site, Google first has discover all of its individual pages. After that it will analyse their content in a process called indexing. Over 200 variables calculated as part of this indexing process are then used to determine your ranking in search results.
 
 The problem with React and other client-side rendered applications is that Google uses the semantic HTML of a page in order to determine its contents. With client-side rendered applications an almost-empty HTML document is initially delivered on page load and then Javascript is used to render the rest of the page.
 
 Despite progress in determining the contents of client-side rendered applications, Google still encounters issues including:
 
-1. Client-side rendered Javascript often returns success status codes when it should return error codes making it hard for the Google bot to figure out which pages exist
-2. If the page takes a long time to render the HTML document then the Google bot may timeout and fail to index the page
+1. Client-side rendered Javascript often returns success status codes when it should return error codes making it hard for Google to figure out which pages exist
+2. If the page takes a long time to render the HTML document then Google may fail to index the page
 
 NextJS solves these issues, among others, by using **server-side rendering** (SSR). This is where the HTML document is rendered on the server and then sent directly to the client, meaning the HTML of the page is immediately viewable. This means that the Google bot is immediately delivered a full HTML document when it visits your page, allowing for easier indexing and a better search ranking.
 
