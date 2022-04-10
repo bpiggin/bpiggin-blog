@@ -20,17 +20,18 @@ module.exports = {
         14: '3.5rem',
       },
       fontFamily: {
-        sans: ['InterVariable', ...defaultTheme.fontFamily.sans],
+        sans: ['Helvetica Neue'],
+        serif: ['ET Book'],
       },
       colors: {
-        primary: colors.amber,
+        primary: colors.trueGray,
         //@ts-ignore
         gray: colors.neutral, // TODO: Remove ts-ignore after tw types gets updated to v3
       },
       typography: (theme) => ({
         DEFAULT: {
           css: {
-            color: theme('colors.gray.700'),
+            color: theme('colors.gray.900'),
             a: {
               color: theme('colors.primary.500'),
               '&:hover': {

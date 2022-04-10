@@ -9,9 +9,9 @@ layout: PostSimple
 canonicalUrl: securely-query-aws-rds-database-powerbi
 ---
 
-Recently at Theodo UK we had a client with a Data Analytics team using the data visualisation tool PowerBI. PowerBI is a Business Intelligence desktop application for Microsoft Windows that allows users to generate graphics and reports for a variety of data sources.
+Recently I worked with a client with a Data Analytics team using the data visualisation tool PowerBI. PowerBI is a Business Intelligence desktop application for Microsoft Windows that allows users to generate graphics and reports for a variety of data sources.
 
-Our client wished to generate reports on the data in their production PostgreSQL database that we provisioned for them in AWS RDS. They therefore required a solution that would allow their Analytics team to query the database from their local machines.
+The client wished to generate reports on the data in their production PostgreSQL database that we provisioned for them in AWS RDS. They therefore required a solution that would allow their Analytics team to query the database from their local machines.
 
 The solution had to balance of number of priorities:
 
@@ -20,7 +20,7 @@ The solution had to balance of number of priorities:
 3. **Speed of implementation** - We had a two day goal for the integration to be completed.
 4. **Cost** - AWS bill should not increase too much.
 
-We found that provisioning an **AWS Client VPN** for the PowerBI team to connect to and query the database through was the ideal balance of these four priorities.
+I found that provisioning an **AWS Client VPN** for the PowerBI team to connect to and query the database through was the ideal balance of these four priorities.
 
 ## Decision Process
 
@@ -108,7 +108,7 @@ The AWS [whitepaper](https://docs.aws.amazon.com/en_us/whitepapers/latest/using-
   </div>
 </div>
 
-From the above analysis we concluded that provisioning an AWS Client VPN satisfied three out of our four priorities. We mitigated the downside of VPN configuration on the client side by providing good documentation to the PowerBI users for connecting to the VPN.
+From the above analysis I concluded that provisioning an AWS Client VPN satisfied three out of our four priorities. I mitigated the downside of VPN configuration on the client side by providing good documentation to the PowerBI users for connecting to the VPN.
 
 ## Provisioning an AWS Client VPN using Terraform
 
@@ -118,7 +118,7 @@ Therefore we have our first step:
 
 ### Step 1: Provision a read replica of your database in RDS.
 
-At Theodo UK we use [Terraform](https://www.terraform.io/) to provision infrastructure in AWS which brings all the benefits of infrastructure as code, including versioning, automation and many more.
+I am now in the habit of using [Terraform](https://www.terraform.io/) to provision infrastructure in AWS which brings all the benefits of infrastructure as code, including versioning, automation and many more.
 
 In Terraform provisioning a read replica is as easy as specifying another RDS resource block and setting the `replicate_source_db` option to the id of your production database.
 
@@ -221,38 +221,3 @@ AWS provides a [VPN client](https://docs.aws.amazon.com/vpn/latest/clientvpn-use
 4. Query away!
 
 Make sure you share the database credentials and VPN configuration file securely between users. Now you are all set up!
-
-<div
-  style={{
-    borderRadius: 5,
-    backgroundColor: '#262626',
-    display: 'flex',
-    padding: '0px 1.5rem 0px 1.5rem',
-  }}
->
-  <div style={{ marginRight: '2rem' }}>
-    <img src="/static/images/theodo.png" alt="drawing" width="130" />
-  </div>
-  <div>
-    <h2 style={{ marginTop: '1rem', marginBottom: 0, color: 'white' }}>
-      We help you build the tech capability to stand out in your market
-    </h2>
-    <div style={{ marginTop: '-1rem', marginBottom: '1rem' }}>
-      <a
-        href="https://www.theodo.co.uk/contact?hsLang=en-gb"
-        target="_blank"
-        className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 no-underline"
-        style={{ textDecoration: 'none' }}
-        onClick={() =>
-          window.gtag?.('event', 'contact_us', {
-            event_category: 'contact_us',
-            event_label: 'contact_us',
-            value: 'contact_us',
-          })
-        }
-      >
-        Let's talk &rarr;
-      </a>
-    </div>
-  </div>
-</div>

@@ -1,11 +1,11 @@
 const siteMetadata = {
-  title: "Ben Piggin's Blog",
+  title: 'Ben Piggin',
   author: 'Ben Piggin',
   headerTitle: 'Ben Piggin',
   description:
-    'Ben Piggin is an Architect Developer at Theodo UK. This blog contains his thoughts on technology and maybe other things, who knows?',
+    'Ben Piggin is a software engineer who lives in London. Sometimes he writes blog articles. You can find them here.',
   language: 'en-gb',
-  theme: 'dark', // system, dark or light
+  theme: 'light', // system, dark or light
   siteUrl: 'https://bpiggin.com',
   siteRepo: 'https://github.com/bpiggin/bpiggin-blog',
   siteLogo: '/static/images/logo.png',

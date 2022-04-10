@@ -22,42 +22,30 @@ export default function Home({ posts }: InferGetStaticPropsType<typeof getStatic
     <>
       <PageSEO title={siteMetadata.title} description={siteMetadata.description} />
       <div className="divide-y divide-gray-200 dark:divide-gray-700">
-        <div className="space-y-2 pt-6 pb-8 md:space-y-5">
-          <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
-            Latest
-          </h1>
-          <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">
-            Like what you read? I work at a consultancy called Theodo UK, feel free to{' '}
-            <a
-              href="https://www.theodo.co.uk/contact?hsLang=en-gb"
-              target="_blank"
-              className="text-primary-500 underline hover:text-primary-300"
-              rel="noreferrer"
-              onClick={() => logEvent('contact_us', 'contact_us', 'contact_us', 'contact_us')}
-            >
-              contact us
-            </a>{' '}
-            for help on your project.
+        <div className="space-y-2 pt-3 pb-6 md:space-y-4">
+          <p className="leading-7 text-gray-600 dark:text-gray-400">
+            Ben Piggin is a software engineer who lives in London. Sometimes he writes blog
+            articles. You can find them here.
           </p>
         </div>
         <ul className="divide-y divide-gray-200 dark:divide-gray-700">
           {!posts.length && <div className="mt-8">No posts found.</div>}
           {posts.slice(0, MAX_DISPLAY).map((frontMatter) => {
-            const { slug, date, title, summary, tags } = frontMatter
+            const { slug, date, title, summary } = frontMatter
             return (
-              <li key={slug} className="py-8">
+              <li key={slug} className="py-6">
                 <article>
                   <div className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
                     <dl>
                       <dt className="sr-only">Published on</dt>
-                      <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
+                      <dd className="text-sm font-medium leading-6 text-gray-500 dark:text-gray-400">
                         <time dateTime={date}>{formatDate(date)}</time>
                       </dd>
                     </dl>
-                    <div className="space-y-5 xl:col-span-3">
-                      <div className="space-y-6">
+                    <div className="space-y-3 xl:col-span-3">
+                      <div className="space-y-3">
                         <div>
-                          <h2 className="text-2xl font-bold leading-8 tracking-tight">
+                          <h2 className="font-sans text-2xl font-bold leading-8 tracking-tight">
                             <Link
                               href={`/blog/${slug}`}
                               className="text-gray-900 dark:text-gray-100"
@@ -65,14 +53,9 @@ export default function Home({ posts }: InferGetStaticPropsType<typeof getStatic
                               {title}
                             </Link>
                           </h2>
-                          <div className="flex flex-wrap">
-                            {tags.map((tag) => (
-                              <Tag key={tag} text={tag} />
-                            ))}
-                          </div>
                         </div>
-                        <div className="prose max-w-none text-gray-500 dark:text-gray-400">
-                          {summary}
+                        <div className="max-w-none text-gray-600 dark:text-gray-400">
+                          <p>{summary}</p>
                         </div>
                       </div>
                       <div className="text-base font-medium leading-6">

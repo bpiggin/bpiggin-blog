@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'ET Book';
+  src: url('/fonts/ETbb-Regular.otf');
+}
+
+@layer base {
+  html {
+    @apply font-serif;
+    font-size: 1.15rem;
+  }
+}
+
 .task-list-item::before {
   @apply hidden;
 }
@@ -26,4 +38,12 @@ input:-webkit-autofill:focus {
 
 a {
   overflow-wrap: break-word;
+}
+
+h1,
+h2,
+h3,
+h4,
+h4 {
+  @apply font-sans;
 }
