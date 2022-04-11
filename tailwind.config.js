@@ -84,7 +84,7 @@ module.exports = {
             },
             hr: { borderColor: theme('colors.gray.200') },
             'ol li::marker': {
-              fontWeight: '600',
+              fontWeight: '400',
               color: theme('colors.gray.900'),
             },
             'ul li::marker': {

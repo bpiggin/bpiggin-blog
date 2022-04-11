@@ -15,12 +15,12 @@ The client wished to generate reports on the data in their production PostgreSQL
 
 The solution had to balance of number of priorities:
 
-1. **Security** - The production data was highly sensitive and it was important to not risk a data breach.
-2. **Convenience** - Ideally the solution would require minimal effort on the side of the PowerBI team to implement on their local machines.
-3. **Speed of implementation** - We had a two day goal for the integration to be completed.
-4. **Cost** - AWS bill should not increase too much.
+1. _Security_ - The production data was highly sensitive and it was important to not risk a data breach.
+2. _Convenience_ - Ideally the solution would require minimal effort on the side of the PowerBI team to implement on their local machines.
+3. _Speed of implementation_ - We had a two day goal for the integration to be completed.
+4. _Cost_ - AWS bill should not increase too much.
 
-I found that provisioning an **AWS Client VPN** for the PowerBI team to connect to and query the database through was the ideal balance of these four priorities.
+I found that provisioning an _AWS Client VPN_ for the PowerBI team to connect to and query the database through was the ideal balance of these four priorities.
 
 ## Decision Process
 
