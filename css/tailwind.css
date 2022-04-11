@@ -5,6 +5,7 @@
 @font-face {
   font-family: 'ET Book';
   src: url('/fonts/ETbb-Regular.otf');
+  font-display: swap;
 }
 
 @layer base {
