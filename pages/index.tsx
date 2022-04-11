@@ -45,7 +45,7 @@ export default function Home({ posts }: InferGetStaticPropsType<typeof getStatic
                     <div className="space-y-3 xl:col-span-3">
                       <div className="space-y-3">
                         <div>
-                          <h2 className="font-sans text-2xl font-bold leading-8 tracking-tight">
+                          <h2 className="font-sans text-xl font-bold  tracking-tight">
                             <Link
                               href={`/blog/${slug}`}
                               className="text-gray-900 dark:text-gray-100"
