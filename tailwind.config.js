@@ -21,7 +21,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ['Helvetica Neue'],
-        serif: ['ET Book'],
+        serif: ['ET Book', 'Times New Roman'],
       },
       colors: {
         primary: colors.trueGray,
