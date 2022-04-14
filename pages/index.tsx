@@ -23,7 +23,7 @@ export default function Home({ posts }: InferGetStaticPropsType<typeof getStatic
       <PageSEO title={siteMetadata.title} description={siteMetadata.description} />
       <div className="divide-y divide-gray-200 dark:divide-gray-700">
         <div className="space-y-2 pt-3 pb-6 md:space-y-4">
-          <p className="leading-7 text-gray-600 dark:text-gray-400">
+          <p className="leading-7 text-gray-600 dark:text-gray-300">
             Ben Piggin is a software engineer who lives in London. Sometimes he writes blog
             articles. You can find them here.
           </p>
@@ -38,7 +38,7 @@ export default function Home({ posts }: InferGetStaticPropsType<typeof getStatic
                   <div className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
                     <dl>
                       <dt className="sr-only">Published on</dt>
-                      <dd className="text-sm font-medium leading-6 text-gray-500 dark:text-gray-400">
+                      <dd className="text-sm font-medium leading-6 text-gray-500 dark:text-gray-300">
                         <time dateTime={date}>{formatDate(date)}</time>
                       </dd>
                     </dl>
@@ -54,14 +54,14 @@ export default function Home({ posts }: InferGetStaticPropsType<typeof getStatic
                             </Link>
                           </h2>
                         </div>
-                        <div className="max-w-none text-gray-600 dark:text-gray-400">
+                        <div className="max-w-none text-gray-600 dark:text-gray-300">
                           <p>{summary}</p>
                         </div>
                       </div>
                       <div className="text-base font-medium leading-6">
                         <Link
                           href={`/blog/${slug}`}
-                          className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+                          className="text-primary-300 hover:text-primary-600 dark:hover:text-primary-200"
                           aria-label={`Read "${title}"`}
                         >
                           Read more &rarr;
