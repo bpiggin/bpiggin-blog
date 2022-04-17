@@ -1,3 +1,4 @@
+import Link from '@/components/Link'
 import React, { FC, useState } from 'react'
 
 interface IProps {
@@ -9,7 +10,10 @@ export const ControlPanel: FC<IProps> = ({ rule, setRule }) => {
   const [value, setValue] = useState(rule.toString())
   return (
     <div className="absolute bg-white p-3">
-      <p className="mb-2">Cellular Automata Explorer</p>
+      <p className="mb-2">
+        Cellular Automata Explorer{' '}
+        <Link href="https://mathworld.wolfram.com/ElementaryCellularAutomaton.html">ⓘ</Link>
+      </p>
       <div className="row mb-2 flex">
         <p>Rule (1-256):</p>
         <input
