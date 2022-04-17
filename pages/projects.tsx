@@ -1,9 +1,12 @@
 import Link from '@/components/Link'
+import { PageSEO } from '@/components/SEO'
 import projectsData from '@/data/projectsData'
+import siteMetadata from '@/data/siteMetadata'
 
 export default function Projects() {
   return (
     <>
+      <PageSEO title={`Projects - ${siteMetadata.author}`} description="Things I have built" />
       {projectsData.map((project) => (
         <div key={project.title} className="flex w-full flex-col items-center md:flex-row">
           <div className="w-full">
