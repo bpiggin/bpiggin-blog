@@ -7,12 +7,19 @@ import Footer from './Footer'
 import MobileNav from './MobileNav'
 import ThemeSwitch from './ThemeSwitch'
 import { ReactNode } from 'react'
+import { useRouter } from 'next/router'
 
 interface Props {
   children: ReactNode
 }
 
+const unWrappedRoutes = ['/projects/cellularautomata']
+
 const LayoutWrapper = ({ children }: Props) => {
+  const { pathname } = useRouter()
+  if (unWrappedRoutes.includes(pathname)) {
+    return <div className="max-h-screen w-full">{children}</div>
+  }
   return (
     <SectionContainer>
       <div className="flex h-screen flex-col justify-between">
