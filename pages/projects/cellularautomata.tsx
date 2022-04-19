@@ -1,4 +1,5 @@
 import { ControlPanel } from '@/components/projects/rulethirty/ControlPanel'
+import { PageSEO } from '@/components/SEO'
 import React, { useRef, useEffect, useState } from 'react'
 
 const getInitialState = (cols: number) => {
@@ -30,7 +31,7 @@ export default function RuleThirty() {
   const renderFrames = (frames: number) => {
     for (let i = 0; i < frames; i++) {
       const resolution = 1
-      const cols = window.innerWidth
+      const cols = window.innerWidth + 500
       currentRow = currentRow ? generateNextRow(currentRow, rule) : getInitialState(cols)
       for (let col = 0; col < currentRow.length; col++) {
         const cell = currentRow[col]
@@ -59,7 +60,7 @@ export default function RuleThirty() {
 
   useEffect(() => {
     canvasCtx.current = canvasRef.current.getContext('2d')
-    canvasRef.current.width = window.innerWidth
+    canvasRef.current.width = window.innerWidth + 500
     canvasRef.current.height = window.innerHeight
     requestIdRef.current = requestAnimationFrame(tick)
     return () => {
@@ -71,7 +72,7 @@ export default function RuleThirty() {
     cancelAnimationFrame(requestIdRef.current)
     currentRowIndex.current = 0
     currentRow = null
-    canvasCtx.current.clearRect(0, 0, window.innerWidth, window.innerHeight)
+    canvasCtx.current.clearRect(0, 0, window.innerWidth + 500, window.innerHeight)
     requestIdRef.current = requestAnimationFrame(tick)
   }
 
@@ -80,9 +81,13 @@ export default function RuleThirty() {
   }, [rule])
 
   return (
-    <>
+    <div className="overflow-clip bg-white">
+      <PageSEO
+        title={`Cellular Automata Explorer`}
+        description="Specify a rule number and see the corresponding Cellular Automaton"
+      />
       <ControlPanel rule={rule} setRule={setRule} />
-      <canvas id="ruleThirty" ref={canvasRef} />
-    </>
+      <canvas style={{ marginLeft: -250 }} ref={canvasRef} />
+    </div>
   )
 }

@@ -8,8 +8,16 @@ interface IProps {
 
 export const ControlPanel: FC<IProps> = ({ rule, setRule }) => {
   const [value, setValue] = useState(rule.toString())
-  return (
-    <div className="absolute bg-white p-3">
+  const [minimised, setMinimised] = useState(false)
+  return minimised ? (
+    <button
+      className="test-sm absolute rounded-sm bg-slate-600 px-2 py-0.5 font-sans"
+      onClick={() => setMinimised(false)}
+    >
+      Open panel
+    </button>
+  ) : (
+    <div className="absolute bg-white p-3 text-black">
       <p className="mb-2">
         Cellular Automata Explorer{' '}
         <Link href="https://mathworld.wolfram.com/ElementaryCellularAutomaton.html">ⓘ</Link>
@@ -33,6 +41,12 @@ export const ControlPanel: FC<IProps> = ({ rule, setRule }) => {
           →
         </button>
       </div>
+      <button
+        onClick={() => setMinimised(true)}
+        className="self-end rounded-sm bg-slate-600 px-2 font-sans text-sm text-white"
+      >
+        Close panel
+      </button>
     </div>
   )
 }

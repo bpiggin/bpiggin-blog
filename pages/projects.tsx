@@ -11,7 +11,7 @@ export default function Projects() {
         <div key={project.title} className="flex w-full flex-col items-center md:flex-row">
           <div className="w-full">
             <p>{project.title}</p>
-            <p className="text-sm text-primary-600">{project.description}</p>
+            <p className="text-sm text-primary-600 dark:text-primary-400">{project.description}</p>
           </div>
           <div className="mt-2 flex w-full justify-start md:w-fit md:justify-end">
             <Link
