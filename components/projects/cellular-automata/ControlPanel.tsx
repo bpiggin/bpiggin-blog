@@ -11,7 +11,7 @@ export const ControlPanel: FC<IProps> = ({ rule, setRule }) => {
   const [minimised, setMinimised] = useState(false)
   return minimised ? (
     <button
-      className="test-sm absolute rounded-sm bg-slate-600 px-2 py-0.5 font-sans"
+      className="absolute rounded-sm bg-slate-600 px-2 py-0.5 font-sans text-sm text-white"
       onClick={() => setMinimised(false)}
     >
       Open panel

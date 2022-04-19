@@ -19,7 +19,7 @@ export default function Projects() {
               className="whitespace-nowrap text-sm text-primary-900 hover:text-primary-600 dark:text-primary-100 dark:hover:text-primary-200"
               aria-label={`Explore "${project.title}"`}
             >
-              🔗 projects/cellularautomata &rarr;
+              🔗 projects/cellular-automata &rarr;
             </Link>
           </div>
         </div>

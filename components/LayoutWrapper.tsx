@@ -13,7 +13,7 @@ interface Props {
   children: ReactNode
 }
 
-const unWrappedRoutes = ['/projects/cellularautomata']
+const unWrappedRoutes = ['/projects/cellular-automata']
 
 const LayoutWrapper = ({ children }: Props) => {
   const { pathname } = useRouter()

@@ -1,4 +1,4 @@
-import { ControlPanel } from '@/components/projects/rulethirty/ControlPanel'
+import { ControlPanel } from '@/components/projects/cellular-automata/ControlPanel'
 import { PageSEO } from '@/components/SEO'
 import React, { useRef, useEffect, useState } from 'react'
 
@@ -72,7 +72,7 @@ export default function RuleThirty() {
     cancelAnimationFrame(requestIdRef.current)
     currentRowIndex.current = 0
     currentRow = null
-    canvasCtx.current.clearRect(0, 0, window.innerWidth + 500, window.innerHeight)
+    canvasCtx.current.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height)
     requestIdRef.current = requestAnimationFrame(tick)
   }
 
