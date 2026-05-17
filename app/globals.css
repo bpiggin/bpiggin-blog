@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: #f4f4f5;
+  --foreground: #18181b;
+}
+
+.dark {
+  --background: #09090b;
+  --foreground: #fafafa;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-host-grotesk);
+}
+
+html,
+body {
+  height: 100dvh;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  cursor: default;
+}
+
+video.bg-video::-webkit-media-controls,
+video.bg-video::-webkit-media-controls-enclosure {
+  display: none !important;
+}
