@@ -1,11 +1,14 @@
 "use client";
 
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useSiteReady } from "./site-ready-provider";
 import { useTheme } from "./theme-provider";
 
 const TRANSITION_SPEED = 3;
 const fadeClass = "transition-opacity duration-700 ease-in-out motion-reduce:transition-none";
 const instantClass = "bg-instant";
+const blurInClass =
+  "transition-[filter] duration-1000 ease-out motion-reduce:transition-none";
 
 const videoProps = {
   muted: true,
@@ -46,6 +49,7 @@ function useVideoReady(videoRef: React.RefObject<HTMLVideoElement | null>) {
 
 export function ThemeBackground() {
   const { theme, setThemeTransitionActive } = useTheme();
+  const { isSiteReady, setSiteReady } = useSiteReady();
   const isDark = theme === "dark";
 
   const dayVideoRef = useRef<HTMLVideoElement>(null);
@@ -59,7 +63,17 @@ export function ThemeBackground() {
   const isFirstThemeEffect = useRef(true);
 
   const dayVideoReady = useVideoReady(dayVideoRef);
+  const sunsetVideoReady = useVideoReady(sunsetVideoRef);
+  const sunriseVideoReady = useVideoReady(sunriseVideoRef);
   const nightVideoReady = useVideoReady(nightVideoRef);
+
+  const allVideosReady =
+    dayVideoReady &&
+    sunsetVideoReady &&
+    sunriseVideoReady &&
+    nightVideoReady;
+
+  const [dayVideoSharp, setDayVideoSharp] = useState(false);
 
   const [sunsetPlaying, setSunsetPlaying] = useState(false);
   const [sunsetVisible, setSunsetVisible] = useState(false);
@@ -86,6 +100,18 @@ export function ThemeBackground() {
   useEffect(() => {
     preloadVideos();
   }, [preloadVideos]);
+
+  useEffect(() => {
+    if (allVideosReady) {
+      setSiteReady(true);
+    }
+  }, [allVideosReady, setSiteReady]);
+
+  useEffect(() => {
+    if (!isSiteReady) return;
+    const id = requestAnimationFrame(() => setDayVideoSharp(true));
+    return () => cancelAnimationFrame(id);
+  }, [isSiteReady]);
 
   useEffect(() => {
     setThemeTransitionActive(sunsetPlaying || sunrisePlaying);
@@ -225,6 +251,7 @@ export function ThemeBackground() {
     const nightVideo = nightVideoRef.current;
 
     if (isFirstThemeEffect.current) {
+      if (!isSiteReady) return;
       isFirstThemeEffect.current = false;
       if (isDark) {
         setNightActive(true);
@@ -306,7 +333,7 @@ export function ThemeBackground() {
     } else {
       sunset.addEventListener("loadeddata", playSunsetForward, { once: true });
     }
-  }, [isDark, dayVideoReady, nightVideoReady]);
+  }, [isDark, dayVideoReady, nightVideoReady, isSiteReady]);
 
   const sunsetForwardToDark = isDark && sunsetPlaying;
   const sunriseToLight = !isDark && nightActive;
@@ -314,10 +341,12 @@ export function ThemeBackground() {
     ((!isDark || sunsetForwardToDark) && !dayVideoReady && !sunriseToLight) ||
     (sunriseToLight && !dayRevealed);
   const showDayVideo =
+    isSiteReady &&
     dayVideoReady &&
     (sunsetForwardToDark ||
       (dayRevealed && !sunrisePlaying) ||
       (!isDark && !sunsetPlaying && !sunrisePlaying && !nightActive));
+  const showLoadingPoster = !isSiteReady;
   const showSunset = sunsetPlaying && sunsetVisible;
   const showSunrise = sunrisePlaying && sunriseVisible;
   const showNightPoster = nightActive && !nightVideoReady;
@@ -332,6 +361,15 @@ export function ThemeBackground() {
       aria-hidden
       className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-black"
     >
+      {showLoadingPoster && (
+        <>
+          <div
+            className="absolute inset-0 scale-105 bg-cover bg-center blur-md"
+            style={{ backgroundImage: "url(/day_final.png)" }}
+          />
+          <div className="absolute inset-0 bg-black/40" />
+        </>
+      )}
       <div
         className={`absolute inset-0 bg-cover bg-center ${
           showDayPoster && sunriseToLight ? instantClass : fadeClass
@@ -342,9 +380,9 @@ export function ThemeBackground() {
         ref={dayVideoRef}
         src="/daytime_vid.mp4"
         {...videoProps}
-        className={`bg-video absolute inset-0 h-full w-full object-cover ${instantClass} ${
-          showDayVideo ? "opacity-100" : "opacity-0"
-        }`}
+        className={`bg-video absolute inset-0 h-full w-full object-cover ${instantClass} ${blurInClass} ${
+          dayVideoSharp ? "blur-0" : "blur-md"
+        } ${showDayVideo ? "opacity-100" : "opacity-0"}`}
       />
       <video
         ref={sunsetVideoRef}

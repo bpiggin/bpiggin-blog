@@ -24,10 +24,7 @@ export const metadata: Metadata = {
 const themeScript = `
 (function () {
   try {
-    var stored = localStorage.getItem("theme");
-    var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    var theme = stored === "light" || stored === "dark" ? stored : prefersDark ? "dark" : "light";
-    document.documentElement.classList.toggle("dark", theme === "dark");
+    document.documentElement.classList.remove("dark");
   } catch (_) {}
 })();
 `;
@@ -44,6 +41,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
+        <link rel="preload" href="/day_final.png" as="image" />
         <link rel="preload" href="/daytime_vid.mp4" as="video" type="video/mp4" />
         <link rel="preload" href="/sunset_final.mp4" as="video" type="video/mp4" />
         <link rel="preload" href="/sunrise_final.mp4" as="video" type="video/mp4" />

@@ -1,11 +1,5 @@
-import { SiteShell } from "@/components/site-shell";
-import { ThemeBackground } from "@/components/theme-background";
+import { HomePage } from "@/components/home-page";
 
 export default function Home() {
-  return (
-    <div className="relative h-dvh overflow-hidden">
-      <ThemeBackground />
-      <SiteShell />
-    </div>
-  );
+  return <HomePage />;
 }
