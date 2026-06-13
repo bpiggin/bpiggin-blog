@@ -9,6 +9,8 @@ const fadeClass = "transition-opacity duration-700 ease-in-out motion-reduce:tra
 const instantClass = "bg-instant";
 const blurInClass =
   "transition-[filter] duration-1000 ease-out motion-reduce:transition-none";
+const imageLayerClass = "bg-layer-image";
+const videoWrapClass = "bg-layer-video-wrap";
 
 const videoProps = {
   muted: true,
@@ -364,56 +366,64 @@ export function ThemeBackground() {
       {showLoadingPoster && (
         <>
           <div
-            className="absolute inset-0 scale-105 bg-cover bg-center blur-md"
+            className={`${imageLayerClass} bg-loading-poster blur-md`}
             style={{ backgroundImage: "url(/day_final.png)" }}
           />
           <div className="absolute inset-0 bg-black/40" />
         </>
       )}
       <div
-        className={`absolute inset-0 bg-cover bg-center ${
+        className={`${imageLayerClass} ${
           showDayPoster && sunriseToLight ? instantClass : fadeClass
         } ${showDayPoster ? "opacity-100" : "opacity-0"}`}
         style={{ backgroundImage: "url(/day_final.png)" }}
       />
-      <video
-        ref={dayVideoRef}
-        src="/daytime_vid.mp4"
-        {...videoProps}
-        className={`bg-video absolute inset-0 h-full w-full object-cover ${instantClass} ${blurInClass} ${
-          dayVideoSharp ? "blur-0" : "blur-md"
-        } ${showDayVideo ? "opacity-100" : "opacity-0"}`}
-      />
-      <video
-        ref={sunsetVideoRef}
-        src="/sunset_final.mp4"
-        {...videoProps}
-        className={`bg-video absolute inset-0 h-full w-full object-cover ${sunsetTransitionClass} ${
-          showSunset ? "opacity-100" : "opacity-0"
-        }`}
-      />
+      <div className={videoWrapClass}>
+        <video
+          ref={dayVideoRef}
+          src="/daytime_vid.mp4"
+          {...videoProps}
+          className={`bg-video ${instantClass} ${blurInClass} ${
+            dayVideoSharp ? "blur-0" : "blur-md"
+          } ${showDayVideo ? "opacity-100" : "opacity-0"}`}
+        />
+      </div>
+      <div className={videoWrapClass}>
+        <video
+          ref={sunsetVideoRef}
+          src="/sunset_final.mp4"
+          {...videoProps}
+          className={`bg-video ${sunsetTransitionClass} ${
+            showSunset ? "opacity-100" : "opacity-0"
+          }`}
+        />
+      </div>
       <div
-        className={`absolute inset-0 bg-cover bg-center ${
+        className={`${imageLayerClass} ${
           showNightPoster ? "opacity-100" : "opacity-0"
         } ${showNightPoster ? instantClass : fadeClass}`}
         style={{ backgroundImage: "url(/night_final.png)" }}
       />
-      <video
-        ref={nightVideoRef}
-        src="/nighttime_vid.mp4"
-        {...videoProps}
-        className={`bg-video absolute inset-0 h-full w-full object-cover ${instantClass} ${
-          showNightVideo ? "opacity-100" : "opacity-0"
-        }`}
-      />
-      <video
-        ref={sunriseVideoRef}
-        src="/sunrise_final.mp4"
-        {...videoProps}
-        className={`bg-video absolute inset-0 h-full w-full object-cover ${sunriseTransitionClass} ${
-          showSunrise ? "opacity-100" : "opacity-0"
-        }`}
-      />
+      <div className={videoWrapClass}>
+        <video
+          ref={nightVideoRef}
+          src="/nighttime_vid.mp4"
+          {...videoProps}
+          className={`bg-video ${instantClass} ${
+            showNightVideo ? "opacity-100" : "opacity-0"
+          }`}
+        />
+      </div>
+      <div className={videoWrapClass}>
+        <video
+          ref={sunriseVideoRef}
+          src="/sunrise_final.mp4"
+          {...videoProps}
+          className={`bg-video ${sunriseTransitionClass} ${
+            showSunrise ? "opacity-100" : "opacity-0"
+          }`}
+        />
+      </div>
     </div>
   );
 }

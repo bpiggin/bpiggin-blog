@@ -5,6 +5,7 @@
 :root {
   --background: #f4f4f5;
   --foreground: #18181b;
+  --bg-mobile-shift: 50px;
 }
 
 .dark {
@@ -39,4 +40,60 @@ video.bg-video::-webkit-media-controls-enclosure {
 
 .bg-instant {
   transition: none !important;
+}
+
+@media (max-width: 639px) {
+  .bg-layer-image {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: calc(100% + var(--bg-mobile-shift)) center;
+  }
+
+  .bg-layer-image.bg-loading-poster {
+    background-size: 105%;
+    background-position: calc(100% + var(--bg-mobile-shift)) center;
+  }
+
+  .bg-layer-video-wrap {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .bg-layer-video-wrap > video {
+    position: absolute;
+    top: 0;
+    right: calc(-1 * var(--bg-mobile-shift));
+    height: 100%;
+    width: auto;
+    max-width: none;
+  }
+}
+
+@media (min-width: 640px) {
+  .bg-layer-image {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .bg-layer-image.bg-loading-poster {
+    background-size: cover;
+  }
+
+  .bg-layer-video-wrap {
+    position: absolute;
+    inset: 0;
+  }
+
+  .bg-layer-video-wrap > video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
 }
