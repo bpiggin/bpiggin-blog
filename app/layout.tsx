@@ -46,6 +46,7 @@ export default function RootLayout({
       <head>
         <link rel="preload" href="/daytime_vid.mp4" as="video" type="video/mp4" />
         <link rel="preload" href="/sunset_final.mp4" as="video" type="video/mp4" />
+        <link rel="preload" href="/sunrise_final.mp4" as="video" type="video/mp4" />
         <link rel="preload" href="/nighttime_vid.mp4" as="video" type="video/mp4" />
       </head>
       <body className="h-dvh overflow-hidden font-sans">

@@ -36,3 +36,7 @@ video.bg-video::-webkit-media-controls,
 video.bg-video::-webkit-media-controls-enclosure {
   display: none !important;
 }
+
+.bg-instant {
+  transition: none !important;
+}

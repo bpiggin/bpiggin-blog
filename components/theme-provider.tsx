@@ -4,6 +4,7 @@ import {
   createContext,
   useCallback,
   useContext,
+  useState,
   useSyncExternalStore,
 } from "react";
 
@@ -13,6 +14,8 @@ type ThemeContextValue = {
   theme: Theme;
   setTheme: (theme: Theme) => void;
   toggleTheme: () => void;
+  themeTransitionActive: boolean;
+  setThemeTransitionActive: (active: boolean) => void;
 };
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
@@ -36,17 +39,31 @@ function subscribe(onStoreChange: () => void) {
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const theme = useSyncExternalStore(subscribe, getTheme, (): Theme => "light");
+  const [themeTransitionActive, setThemeTransitionActive] = useState(false);
 
-  const setTheme = useCallback((theme: Theme) => {
-    applyTheme(theme);
-  }, []);
+  const setTheme = useCallback(
+    (theme: Theme) => {
+      if (themeTransitionActive) return;
+      applyTheme(theme);
+    },
+    [themeTransitionActive],
+  );
 
   const toggleTheme = useCallback(() => {
+    if (themeTransitionActive) return;
     applyTheme(getTheme() === "light" ? "dark" : "light");
-  }, []);
+  }, [themeTransitionActive]);
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme, toggleTheme }}>
+    <ThemeContext.Provider
+      value={{
+        theme,
+        setTheme,
+        toggleTheme,
+        themeTransitionActive,
+        setThemeTransitionActive,
+      }}
+    >
       {children}
     </ThemeContext.Provider>
   );

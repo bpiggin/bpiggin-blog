@@ -27,7 +27,7 @@ export function SiteHeader({ onOpenPanel }: SiteHeaderProps) {
         onClick={() => onOpenPanel("about")}
         className={`${navButtonClass} hover:text-[#ff4528]`}
       >
-        About me
+        About
         <Smile className={navIconClass} strokeWidth={2.75} aria-hidden />
       </button>
       <button

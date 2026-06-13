@@ -14,7 +14,7 @@ function useIsClient() {
 
 export function ThemeToggle() {
   const isClient = useIsClient();
-  const { theme, setTheme } = useTheme();
+  const { theme, setTheme, themeTransitionActive } = useTheme();
   const isDark = theme === "dark";
 
   if (!isClient) {
@@ -22,13 +22,25 @@ export function ThemeToggle() {
   }
 
   return (
-    <DarkModeSwitch
-      checked={isDark}
-      onChange={(checked) => setTheme(checked ? "dark" : "light")}
-      size={36}
-      sunColor="#ffffff"
-      moonColor="#ffffff"
-      aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
-    />
+    <div
+      className={
+        themeTransitionActive
+          ? "pointer-events-none cursor-not-allowed opacity-50"
+          : undefined
+      }
+      aria-disabled={themeTransitionActive}
+    >
+      <DarkModeSwitch
+        checked={isDark}
+        onChange={(checked) => {
+          if (themeTransitionActive) return;
+          setTheme(checked ? "dark" : "light");
+        }}
+        size={36}
+        sunColor="#ffffff"
+        moonColor="#ffffff"
+        aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
+      />
+    </div>
   );
 }
