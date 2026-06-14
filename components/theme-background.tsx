@@ -364,13 +364,10 @@ export function ThemeBackground() {
       className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-black"
     >
       {showLoadingPoster && (
-        <>
-          <div
-            className={`${imageLayerClass} bg-loading-poster blur-md`}
-            style={{ backgroundImage: "url(/day_final.png)" }}
-          />
-          <div className="absolute inset-0 bg-black/40" />
-        </>
+        <div
+          className={imageLayerClass}
+          style={{ backgroundImage: "url(/day_final.png)" }}
+        />
       )}
       <div
         className={`${imageLayerClass} ${

@@ -18,7 +18,7 @@ export function ThemeToggle() {
   const isDark = theme === "dark";
 
   if (!isClient) {
-    return <div className="size-9 shrink-0" aria-hidden />;
+    return <div className="size-7 shrink-0 sm:size-9" aria-hidden />;
   }
 
   return (
@@ -26,7 +26,7 @@ export function ThemeToggle() {
       className={
         themeTransitionActive
           ? "pointer-events-none cursor-not-allowed opacity-50"
-          : undefined
+          : "cursor-pointer text-site opacity-60 transition-[color,opacity] duration-100 ease-in-out hover:text-[#f5eacf] hover:opacity-100"
       }
       aria-disabled={themeTransitionActive}
     >
@@ -37,8 +37,8 @@ export function ThemeToggle() {
           setTheme(checked ? "dark" : "light");
         }}
         size={36}
-        sunColor="#ffffff"
-        moonColor="#ffffff"
+        sunColor="currentColor"
+        moonColor="currentColor"
         aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
       />
     </div>

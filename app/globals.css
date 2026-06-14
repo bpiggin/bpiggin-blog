@@ -16,7 +16,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-host-grotesk);
+  --color-site: #f0e8e2;
+  --font-sans: var(--font-vercetti);
 }
 
 html,
@@ -50,11 +51,6 @@ video.bg-video::-webkit-media-controls-enclosure {
     background-position: calc(100% + var(--bg-mobile-shift)) center;
   }
 
-  .bg-layer-image.bg-loading-poster {
-    background-size: 105%;
-    background-position: calc(100% + var(--bg-mobile-shift)) center;
-  }
-
   .bg-layer-video-wrap {
     position: absolute;
     inset: 0;
@@ -77,10 +73,6 @@ video.bg-video::-webkit-media-controls-enclosure {
     inset: 0;
     background-size: cover;
     background-position: center;
-  }
-
-  .bg-layer-image.bg-loading-poster {
-    background-size: cover;
   }
 
   .bg-layer-video-wrap {

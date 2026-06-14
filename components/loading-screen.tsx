@@ -20,10 +20,10 @@ export function LoadingScreen() {
           transition={{ duration: 0.4, ease: "easeOut" }}
         >
           <div
-            className="size-10 animate-spin rounded-full border-2 border-white/25 border-t-white"
+            className="size-10 animate-spin rounded-full border-2 border-site/25 border-t-site"
             aria-hidden
           />
-          <p className="text-sm font-medium tracking-wide text-white">Loading site</p>
+          <p className="text-sm font-medium tracking-wide text-site/90">Loading site</p>
         </motion.div>
       )}
     </AnimatePresence>

@@ -1,47 +1,61 @@
 "use client";
 
-import { X } from "react-feather";
-import type { PanelId } from "./site-shell";
+import { siteBioTextClass } from "./site-text-styles";
 
-const panelTitles: Record<PanelId, string> = {
-  about: "About me",
-  experience: "Experience",
-  links: "Links",
-};
+const linkHoverClass =
+  "transition-opacity duration-100 ease-in-out hover:opacity-60";
 
-type ContentPanelProps = {
-  panel: PanelId;
-  onClose: () => void;
-};
+const linkClass = `text-base text-[#f5eacf] underline decoration-[#f5eacf]/50 underline-offset-4 sm:text-lg ${linkHoverClass}`;
 
-export function ContentPanel({ panel, onClose }: ContentPanelProps) {
+export function ContentPanel() {
   return (
-    <div className="flex h-full flex-col px-8 py-8 sm:px-10">
-      <div className="flex items-start justify-between gap-6">
-        <h2 className="text-5xl font-semibold tracking-tight text-white sm:text-7xl lg:text-6xl">
-          {panelTitles[panel]}
-        </h2>
-        <button
-          type="button"
-          onClick={onClose}
-          className="cursor-pointer rounded-full border border-white/30 bg-black/20 p-3 text-white backdrop-blur-sm transition hover:bg-black/35"
-          aria-label="Close"
-        >
-          <X size={24} strokeWidth={2} />
-        </button>
+    <div className="flex w-full max-w-[calc(100%-3rem)] flex-col gap-8 sm:max-w-xl">
+      <div className={`flex flex-col gap-4 sm:gap-6 ${siteBioTextClass}`}>
+        <span>
+           I'm Ben and I love building things that help people live better lives.
+        </span>
+        <span>
+           I'm really excited about agents and AI in general.
+        </span>
+        <span>
+          Currently building{" "}
+          <a
+            href="https://www.jackandjill.ai/jack"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`underline decoration-[#f5eacf]/50 underline-offset-4 ${linkHoverClass}`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            Jack
+          </a>
+          .
+        </span>
       </div>
-      <div className="mt-10 max-w-2xl text-lg leading-relaxed text-white/90 sm:text-xl">
-        {panel === "about" && (
-          <p>
-            Placeholder for your about content — bio, what you do, and what you
-            are interested in.
-          </p>
-        )}
-        {panel === "experience" && (
-          <p>Placeholder for your experience and work history.</p>
-        )}
-        {panel === "links" && <p>Placeholder for links to your profiles and projects.</p>}
-      </div>
+
+      <ul className="space-y-1 text-base text-[#f5eacf] sm:text-lg">
+        <li>
+          <a
+            href="https://uk.linkedin.com/in/benjamin-piggin"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={linkClass}
+            onClick={(e) => e.stopPropagation()}
+          >
+            LinkedIn
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://github.com/bpiggin"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={linkClass}
+            onClick={(e) => e.stopPropagation()}
+          >
+            GitHub
+          </a>
+        </li>
+      </ul>
     </div>
   );
 }

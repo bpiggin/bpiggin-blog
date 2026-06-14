@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
-import { Host_Grotesk } from "next/font/google";
+import localFont from "next/font/local";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 
-const hostGrotesk = Host_Grotesk({
-  variable: "--font-host-grotesk",
-  subsets: ["latin"],
+const vercetti = localFont({
+  src: "./fonts/Vercetti-Regular.woff2",
+  variable: "--font-vercetti",
+  weight: "400",
+  style: "normal",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -37,7 +40,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${hostGrotesk.variable} ${hostGrotesk.className} h-dvh select-none overflow-hidden antialiased`}
+      className={`${vercetti.variable} ${vercetti.className} h-dvh select-none overflow-hidden antialiased`}
       suppressHydrationWarning
     >
       <head>

@@ -1,0 +1,41 @@
+# Licence Amicale V.0.2 
+---------------------------------------------
+# Terms of License
+
+## 1. Definitions
+
+1.a — Author·s designates the original creator or creators, or any other person who has participated to the development of the creation files.
+
+1.b — Fellow designates every person who has been gifted the creation files published under the fellowship license, by way of another friend.
+
+1.c — Creation files are the totality of files made available by the owner·s of the copyright, under this licence, who have been clearly identified as such. This collection of files can include source files, font files, generation scripts and documentation.
+
+1.d — Use designates the physical or digital objectification of the creation files into a work that can be consulted and/or used for itself, as an artwork, software or otherwise.
+
+## 2. Conditions of use
+
+2.a — The creation files distributed under Licence Amicale can be used freely by each fellow, for all kinds of projects, commercial or otherwise.
+
+2.b — The creation files under Licence Amicale can be distributed freely to your friends and contacts on a one-to-one basis, who will in turn become fellows.
+
+2.c — The creation files distributed under Licence Amicale may only be used by fellows, in other words, anyone who has received the creation files from a previous fellow.
+
+2.d — Fellows are requested to credit the author·s and the name of the creation wherever possible. The author·s’s name is included in the text file that is shared alongside the creation.
+
+## 3. Diffusion
+
+3.a — The creation files can be distributed online or in-person, including but not limited to email, direct message, USB drive, or external hard drive.
+
+3.b — The creation files SHOULDN’T IN ANY CASE be distributed publicly. It is therefore prohibited to distribute these files on download portals, on blogs, social media, forums or on any other form of digital creation catalog on the internet.
+
+3.c — The creation files SHOULD NEVER be sold in any way. If your clients ask to receive the creation files, in the context of a commercial project, the creation and the creation files should be distributed free of costs and with the present license alongside it.
+
+## 4. Modification
+
+4.a — If a fellow needs to modify the creation files to adapt it to meet special needs, please contact its original author·s in advance in order to obtain their permission. The creation must be distributed as is or accompanied by the modified versions, if necessary with exactly the same license.
+
+## END OF LICENSE
+
+Disclaimer : This user license becomes void and useless if the conditions described above are not respected. It solely and uniquely applies to the creation shared alongside this contract. The author·s remains free to distribute this creation under another license in the future.
+
+www.amicale.li
