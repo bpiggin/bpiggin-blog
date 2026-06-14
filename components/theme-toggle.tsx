@@ -28,7 +28,7 @@ export function ThemeToggle() {
       className={
         themeTransitionActive
           ? "pointer-events-none cursor-not-allowed opacity-50"
-          : "cursor-pointer text-site opacity-60 transition-[color,opacity] duration-100 ease-in-out hover:text-[#f5eacf] hover:opacity-100"
+          : "cursor-pointer text-white opacity-60 transition-opacity duration-100 ease-in-out hover:opacity-100"
       }
       aria-disabled={themeTransitionActive}
     >
@@ -40,8 +40,8 @@ export function ThemeToggle() {
           hapticNudge();
         }}
         size={36}
-        sunColor="currentColor"
-        moonColor="currentColor"
+        sunColor="#ffffff"
+        moonColor="#ffffff"
         aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
       />
     </div>
