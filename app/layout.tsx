@@ -12,8 +12,31 @@ const vercetti = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.bpiggin.com"),
   title: "Ben Piggin",
-  description: "Personal website of Ben Piggin",
+  description: "Founding Engineer at Jack & Jill",
+  openGraph: {
+    title: "Ben Piggin",
+    description: "Founding Engineer at Jack & Jill",
+    url: "https://www.bpiggin.com",
+    siteName: "Ben Piggin",
+    images: [
+      {
+        url: "/day_final.png",
+        width: 1672,
+        height: 941,
+        alt: "Ben Piggin",
+      },
+    ],
+    locale: "en_GB",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ben Piggin",
+    description: "Founding Engineer at Jack & Jill",
+    images: ["/day_final.png"],
+  },
   icons: {
     icon: [
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
