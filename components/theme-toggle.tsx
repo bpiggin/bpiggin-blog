@@ -2,6 +2,7 @@
 
 import { useSyncExternalStore } from "react";
 import { DarkModeSwitch } from "react-toggle-dark-mode";
+import { useHapticFeedback } from "./use-haptic-feedback";
 import { useTheme } from "./theme-provider";
 
 function useIsClient() {
@@ -15,6 +16,7 @@ function useIsClient() {
 export function ThemeToggle() {
   const isClient = useIsClient();
   const { theme, setTheme, themeTransitionActive } = useTheme();
+  const { hapticNudge } = useHapticFeedback();
   const isDark = theme === "dark";
 
   if (!isClient) {
@@ -35,6 +37,7 @@ export function ThemeToggle() {
         onChange={(checked) => {
           if (themeTransitionActive) return;
           setTheme(checked ? "dark" : "light");
+          hapticNudge();
         }}
         size={36}
         sunColor="currentColor"

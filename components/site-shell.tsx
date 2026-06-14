@@ -1,11 +1,13 @@
 "use client";
 
 import { AnimatePresence, motion } from "motion/react";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { ContentPanel } from "./content-panel";
+import { useHapticFeedback } from "./use-haptic-feedback";
 import { useSiteReady } from "./site-ready-provider";
 import { SiteHeader } from "./site-header";
 import { ThemeToggle } from "./theme-toggle";
+import { useViewToggleInteractions } from "./use-view-toggle-interactions";
 
 type View = "header" | "about";
 
@@ -25,9 +27,31 @@ const slideLeft = {
 export function SiteShell() {
   const { isSiteReady } = useSiteReady();
   const [view, setView] = useState<View>("header");
+  const { hapticNudge } = useHapticFeedback();
 
-  const toggleView = () =>
-    setView((current) => (current === "header" ? "about" : "header"));
+  const toggleView = useCallback(
+    () => setView((current) => (current === "header" ? "about" : "header")),
+    [],
+  );
+
+  const toggleViewWithHaptic = useCallback(() => {
+    toggleView();
+    hapticNudge();
+  }, [toggleView, hapticNudge]);
+
+  const interactionHandlers = useViewToggleInteractions({
+    onToggle: toggleViewWithHaptic,
+  });
+
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        toggleViewWithHaptic();
+      }
+    },
+    [toggleViewWithHaptic],
+  );
 
   return (
     <>
@@ -51,17 +75,11 @@ export function SiteShell() {
         {isSiteReady && view === "header" ? (
           <motion.div
             key="header"
-            role="button"
             tabIndex={0}
-            onClick={toggleView}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                toggleView();
-              }
-            }}
+            onKeyDown={handleKeyDown}
             className="absolute inset-0 z-10 flex cursor-pointer flex-col items-start justify-start px-4 pt-42 pb-8 sm:justify-center sm:px-8 sm:py-8"
             {...slideLeft}
+            {...interactionHandlers}
             transition={spring}
           >
             <div className="sm:mb-24">
@@ -71,17 +89,11 @@ export function SiteShell() {
         ) : isSiteReady ? (
           <motion.div
             key="about"
-            role="button"
             tabIndex={0}
-            onClick={toggleView}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                toggleView();
-              }
-            }}
+            onKeyDown={handleKeyDown}
             className="absolute inset-0 z-10 flex cursor-pointer flex-col items-start justify-start px-4 pt-4 pb-6 pr-14 sm:px-8 sm:pt-8 sm:pb-8 sm:pr-8"
             {...slideLeft}
+            {...interactionHandlers}
             transition={spring}
           >
             <ContentPanel />
