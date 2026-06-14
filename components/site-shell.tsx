@@ -27,7 +27,7 @@ const slideLeft = {
 export function SiteShell() {
   const { isSiteReady } = useSiteReady();
   const [view, setView] = useState<View>("header");
-  const { hapticNudge } = useHapticFeedback();
+  const { hapticLight } = useHapticFeedback();
 
   const toggleView = useCallback(
     () => setView((current) => (current === "header" ? "about" : "header")),
@@ -36,8 +36,8 @@ export function SiteShell() {
 
   const toggleViewWithHaptic = useCallback(() => {
     toggleView();
-    hapticNudge();
-  }, [toggleView, hapticNudge]);
+    hapticLight();
+  }, [toggleView, hapticLight]);
 
   const interactionHandlers = useViewToggleInteractions({
     onToggle: toggleViewWithHaptic,
